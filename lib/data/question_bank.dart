@@ -10,6 +10,8 @@ class QuestionBank {
     Question(question: "Cotentin va faire du mobile", answer: false),
     Question(question: "Roselyne a un donjon", answer: true),
     Question(question: "Cotentin va recevoir ses cartes magic", answer: false),
+    Question(question: "1+1=2", answer: true),
+    Question(question: "Cristina est gentille", answer: false)
   ];
 
   List<Question> get list {

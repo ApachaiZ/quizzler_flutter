@@ -50,28 +50,28 @@ class _QuizPageState extends State<QuizPage> {
     ));
   }
 
-  void nextQuestion(bool? answer) {
-    if (answer == questions[index].answer) {
-      score++;
-      scoreKeeper.add(myIcon(
-        myIcon: Icons.check,
-        color: Colors.green,
-      ));
-    } else if (answer == !questions[index].answer) {
-      scoreKeeper.add(myIcon(
-        myIcon: Icons.close,
-        color: Colors.red,
-      ));
-    }
-    if (index < questions.length - 1) {
-      setState(() {
-        index++;
-      });
-    } else {
+  void nextQuestion({bool? answer, bool stop = false}) {
+    if (stop) {
       setState(() {
         scoreKeeper.clear();
         score = 0;
         index = 0;
+      });
+    } else if (index < questions.length && !stop) {
+      if (answer == questions[index].answer) {
+        score++;
+        scoreKeeper.add(myIcon(
+          myIcon: Icons.check,
+          color: Colors.green,
+        ));
+      } else if (answer == !questions[index].answer) {
+        scoreKeeper.add(myIcon(
+          myIcon: Icons.close,
+          color: Colors.red,
+        ));
+      }
+      setState(() {
+        index++;
       });
     }
   }
@@ -82,7 +82,7 @@ class _QuizPageState extends State<QuizPage> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        if (index < questions.length - 1) ...[
+        if (index < questions.length) ...[
           QuizzlerText(question: questions[index]),
           QuizzlerButton(
             nextQuestion: nextQuestion,
@@ -109,7 +109,7 @@ class _QuizPageState extends State<QuizPage> {
               style: TextButton.styleFrom(
                 backgroundColor: Colors.blueAccent,
               ),
-              onPressed: () => nextQuestion(null),
+              onPressed: () => nextQuestion(stop: true),
               child: const Text(
                 "Cliquer pour rejouer",
                 style: TextStyle(

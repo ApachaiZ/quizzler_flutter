@@ -21,7 +21,7 @@ class QuizzlerButton extends StatelessWidget {
           style: TextButton.styleFrom(
             backgroundColor: color,
           ),
-          onPressed: () => nextQuestion(answer),
+          onPressed: () => nextQuestion(answer: answer),
           child: Text(
             answer ? "Vrai" : "Faux",
             style: const TextStyle(
