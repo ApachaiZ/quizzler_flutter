@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quizzler_flutter/data/question_bank.dart';
-import 'package:quizzler_flutter/widgets/quizzler_button.dart';
-import 'package:quizzler_flutter/widgets/quizzler_text.dart';
+import 'package:quizzler_flutter/widgets/end_game.dart';
+import 'package:quizzler_flutter/widgets/quizzler_body.dart';
 
 import 'model/question.dart';
 
@@ -83,42 +83,16 @@ class _QuizPageState extends State<QuizPage> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         if (index < questions.length) ...[
-          QuizzlerText(question: questions[index]),
-          QuizzlerButton(
+          QuizzlerBody(
+            questions: questions,
+            index: index,
             nextQuestion: nextQuestion,
-            answer: true,
-            color: Colors.green,
-          ),
-          QuizzlerButton(
-            nextQuestion: nextQuestion,
-            answer: false,
-            color: Colors.red,
-          ),
-        ] else ...[
-          Text(
-            "Votre score est de $score !",
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 25.0,
-              color: Colors.white,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: TextButton(
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.blueAccent,
-              ),
-              onPressed: () => nextQuestion(stop: true),
-              child: const Text(
-                "Cliquer pour rejouer",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20.0,
-                ),
-              ),
-            ),
           )
+        ] else ...[
+          EndGame(
+            score: score,
+            nextQuestion: nextQuestion,
+          ),
         ],
         Center(
           child: SingleChildScrollView(
