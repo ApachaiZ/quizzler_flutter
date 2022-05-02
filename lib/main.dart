@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:quizzler_flutter/data/question_bank.dart';
 import 'package:quizzler_flutter/widgets/end_game.dart';
-import 'package:quizzler_flutter/widgets/quizzler_body.dart';
+import 'package:quizzler_flutter/widgets/quizzler_button.dart';
+import 'package:quizzler_flutter/widgets/quizzler_text.dart';
 
 import 'model/question.dart';
 
@@ -79,20 +80,23 @@ class _QuizPageState extends State<QuizPage> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         if (index < questions.length) ...[
-          QuizzlerBody(
-            questions: questions,
-            index: index,
+          QuizzlerText(question: questions[index]),
+          QuizzlerButton(
             nextQuestion: nextQuestion,
-          )
-        ] else ...[
-          EndGame(
-            score: score,
-            nextQuestion: nextQuestion,
+            answer: true,
+            color: Colors.green,
           ),
+          QuizzlerButton(
+            nextQuestion: nextQuestion,
+            answer: false,
+            color: Colors.red,
+          ),
+        ] else ...[
+          EndGame(score: score, nextQuestion: nextQuestion),
         ],
         Center(
           child: SingleChildScrollView(
